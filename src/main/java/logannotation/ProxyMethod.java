@@ -20,11 +20,13 @@ public class ProxyMethod implements InvocationHandler {
             InvocationTargetException {
         LogFunc annotation = method.getAnnotation(LogFunc.class);
         if (annotation != null) {
-            logger.log(annotation.level().getLevel(), Arrays.toString(args));
+            logger.log(annotation.level().getLevel(), "Method \""
+                    + method.getName() + "\" gets " + Arrays.toString(args));
         }
         Object result = method.invoke(original, args);
         if (annotation != null) {
-            logger.log(annotation.level().getLevel(), result.toString());
+            logger.log(annotation.level().getLevel(), "Method \""
+                    + method.getName() + "\" returns " + result.toString());
         }
         return result;
     }
